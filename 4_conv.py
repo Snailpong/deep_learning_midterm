@@ -22,7 +22,7 @@ def convolve2d(array, filter):
 if __name__ == '__main__':
     img = np.array(Image.open('./data/train/cat.30.jpg').convert('L'))
     sobel_filter = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-    img_filtered = np.abs(convolve2d(img, sobel_filter))
+    img_filtered = convolve2d(img, sobel_filter)
 
     plt.subplot(121)
     plt.imshow(img, cmap='gray')

@@ -1,3 +1,4 @@
 *.docx
 data
 __pycache__
+*.pdf

@@ -12,23 +12,18 @@ import numpy as np
 
 from datasets import DogCatDataset
 from models import MyModel1
+from utils import init_device_seed
 
 
 BATCH_SIZE = 32
 
 
 def train():
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print('Device: {}'.format(device))
+    device = init_device_seed()
 
     train_loss = []
     val_loss = []
     acc = []
-
-    torch.manual_seed(1234)
-    random.seed(1234)
-    np.random.seed(1234)
 
     dataset = DogCatDataset()
     
@@ -90,9 +85,11 @@ def train():
         val_loss.append(total_val_loss / len(val_dataloader))
         acc.append(correct_val / 6000)
 
-        print('\n', train_loss, val_loss, acc)
+        print('\ntrain_loss: {}\n val_loss: {}\n accuracy: {}'.format(total_loss / len(train_dataloader), total_val_loss / len(val_dataloader), correct_val / 6000))
 
         torch.save(model.state_dict(), './model/MyModel1')
+
+    print('\n--result--\ntrain_loss: {}\n val_loss: {}\n accuracy: {}'.format(train_loss, val_loss, acc))
 
 
 if __name__ == '__main__':
